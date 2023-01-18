@@ -17,66 +17,63 @@ const calculator = {
   divider: document.getElementById("divider"),
   cleaner: document.getElementById("cleaner"),
   same: document.getElementById("same"),
-  screen: document.getElementById("screen"),
   // end keyword
+  screen: document.getElementById("screen"),
+  screenReset: false,
   // end atributes of calculator object
   //000000000000000000000000000000000000000000000000000
 
-  //events
+  // start methods of calculator object
   addToScreen: function (character) {
     let screenChars = this.screen.innerText;
     let lastCharacter = this.screen.innerText.slice(-1);
-
-    let newCharacter = character;
-    console.log("entré1");
-    console.log(newCharacter);
-    // console.log(/[X/+-=]/i.test(newCharacter)); //duda que tengo que solventar
-    // console.log(/[+X/=-]/i.test(newCharacter));
+    console.log(character);
 
     // first and main conditional to evit operators whitout operand (with empty screen)
-    if (!(screenChars === "" && /[+X/=-]/i.test(newCharacter))) {
+    if (!(screenChars === "" && /[+X/=-]/i.test(character))) {
       // second conditional to evit operators super posing
-      console.log("entré2");
-      if (/[+X/=-]/i.test(lastCharacter) && /[+X/=-]/i.test(newCharacter)) {
-        screenChars = screenChars.replace(lastCharacter, newCharacter);
-        console.log("segundo conditional");
-        this.screen.innerText = screenChars;
-      } else if (/[0-9]/.test(newCharacter)) {
-        this.screen.innerText += newCharacter; //here a number is added to the screen
+      if (/[+X/=-]/i.test(lastCharacter) && /[+X/=-]/i.test(character)) {
+        this.screen.innerText = screenChars.replace(lastCharacter, character);
+      } else if (/[0-9]/.test(character)) {
+        //here a number is added to the screen
+        if (this.screenReset) {
+          // here is to cleaner to screen if already pulsed same buton for add new number
+          this.cleanerScreen();
+          this.screenReset = false;
+        }
+        this.screen.innerText += character;
       } else {
-        this.screen.innerText += newCharacter;
-        console.log("aqui llegue con el boton igual");
+        // here add the operator to screen
+        this.screen.innerText += character;
+        this.screenReset = false;
       }
     }
   },
 
   result: function () {
-    let result = "";
-    console.log("boton igual");
-    console.log(result);
+    let result = this.screen.innerText.replaceAll(/x/gi, "*");
 
-    if (/X/i.test(this.screen.innerText)) {
-      result = this.screen.innerText.replace(/x/gi, "*");
+    if (/[x/]/i.test(this.screen.innerText.slice(-1))) {
+      result = this.screen.innerText + "1";
+    } else if (/[+-]/i.test(this.screen.innerText.slice(-1))) {
+      result = this.screen.innerText + "0";
     }
-
-    result = eval(result);
+    this.screenReset = true;
     console.log(result);
-    this.screen.innerText = result;
+    this.screen.innerText = eval(result);
   },
 
   cleanerScreen: function () {
     this.screen.innerText = "";
     console.log("estoy en cleaner");
   },
-
-  //
-
-  //end events
+  // end methods and calculator object
   //000000000000000000000000000000000000000000000000000
 };
 
 const assigmentEvents = () => {
   for (const properties in calculator) {
+    // this conditional is to select operator and digits
     if (/[^=c]/i.test(calculator[properties].innerText)) {
       console.log(calculator[properties].innerText);
       calculator[properties].addEventListener("click", function (element) {
@@ -95,10 +92,7 @@ const assigmentEvents = () => {
       });
     }
   }
-
   console.log(this);
 };
 
-//
 assigmentEvents();
-// calculator.metodo();
