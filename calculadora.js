@@ -51,13 +51,16 @@ const calculator = {
   },
 
   result: function () {
-    let result = this.screen.innerText.replaceAll(/x/gi, "*");
+    let result;
 
     if (/[x/]/i.test(this.screen.innerText.slice(-1))) {
       result = this.screen.innerText + "1";
+      console.log(result);
     } else if (/[+-]/i.test(this.screen.innerText.slice(-1))) {
       result = this.screen.innerText + "0";
     }
+    console.log(result);
+    result = result.replaceAll(/x/gi, "*");
     this.screenReset = true;
     console.log(result);
     this.screen.innerText = eval(result);
