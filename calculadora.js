@@ -52,7 +52,6 @@ const calculator = {
 
   result: function () {
     let result;
-
     if (/[x/]/i.test(this.screen.innerText.slice(-1))) {
       result = this.screen.innerText + "1";
       console.log(result);
@@ -78,18 +77,15 @@ const assigmentEvents = () => {
   for (const properties in calculator) {
     // this conditional is to select operator and digits
     if (/[^=c]/i.test(calculator[properties].innerText)) {
-      console.log(calculator[properties].innerText);
       calculator[properties].addEventListener("click", function (element) {
         let character = element.target.innerText;
         calculator.addToScreen(character);
       });
     } else if (calculator[properties].innerText === "=") {
-      console.log(calculator[properties].innerText);
       calculator[properties].addEventListener("click", function () {
         calculator.result();
       });
     } else if (calculator[properties].innerText === "C") {
-      console.log("estoy con la letra C");
       calculator[properties].addEventListener("click", function () {
         calculator.cleanerScreen();
       });
