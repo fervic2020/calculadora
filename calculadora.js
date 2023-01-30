@@ -32,8 +32,9 @@ const calculator = {
     // first and main conditional to evit operators whitout operand (with empty screen)
     if (!(screenChars === "" && /[+X/=-]/i.test(character))) {
       // second conditional to evit operators super posing
-      if (/[+X/=-]/i.test(lastCharacter) && /[+X/=-]/i.test(character)) {
-        this.screen.innerText = screenChars.replace(lastCharacter, character);
+      if (/[+X/-]/i.test(lastCharacter) && /[+X/-]/i.test(character)) {
+        this.screen.innerText =
+          screenChars.slice(0, screenChars.length - 1) + character;
       } else if (/[0-9]/.test(character)) {
         //here a number is added to the screen
         if (this.screenReset) {
@@ -52,7 +53,6 @@ const calculator = {
 
   result: function () {
     let result = this.screen.innerText;
-
     if (/[x/]/i.test(this.screen.innerText.slice(-1))) {
       result = this.screen.innerText + "1";
       console.log(result);
