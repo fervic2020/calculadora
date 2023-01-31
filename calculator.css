@@ -1,11 +1,12 @@
 * {
     margin: 0;
+    box-sizing: border-box;
     
 }
 
 #container {
     background-image: url(silueta-sombra-bosque-escena_1308-99396.webp);
-    height: 95vh;
+    height: 99vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,48 +14,53 @@
 
 
 .calculator {
-    background-color: rgb(250, 235, 215);
-    margin: auto;
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: rgb(226 215 215 / 98%);
+    padding: 1% 2%;
     height: 70%;
     width: 30%;
     border-radius:25px ;
     border: ridge 3px rgb(255, 248, 248);
 }
 
-.table {
-    padding: 0;
-    height: 15%;
-}
 
-#screen {
+#screenContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 0;
     height: 30%;
     font-size: 200%;
     border: solid 2px black;
     border-radius: 20px;
+    overflow-x: auto;
+
 }
 
 
+#keypad{
+    height: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: space-around;
 
-.number button{
-    background-color: white;
+    
+}
+
+button {
+    width:21% ;
+    height: 21%;
+    font-size: 300%;
+    border-radius:15%;
+    cursor: pointer;
 
 }
 
 .operator {
-    background-color: gray;
-}
-
-.calculator td button {
-    display: block;
-    margin: auto;
-    font-size: 300%;
-    padding: 0;
-    width: 90%;
-    height: 90%;
-    border: groove 4px rgb(178 237 245);
-    border-radius: 10px;
+    background-color: burlywood;
 }
 
 #cleaner {
